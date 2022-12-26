@@ -18,6 +18,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+VERSION="0.1"
 YAD_URL="https://github.com/v1cont/yad"
 GLXINFO_URL="https://dri.freedesktop.org/wiki/glxinfo/"
 NVIDIA_VENDOR="NVIDIA Corporation"
@@ -103,6 +104,7 @@ show_information() {
 
     yad --form \
         --center \
+        --fixed \
         --width 500 \
         --title "Mux Icon: ${vendor}"\
         --image "/tmp/mux-icon.svg"\
@@ -147,6 +149,26 @@ invalid_argument() {
     echo "${program}: unrecognized option '$1'"
     echo "Try '${program} --help' for more information."
     exit 1
+}
+
+# Show about dialog
+about_dialog() {
+    yad --about \
+        --title="About GPUIcon" \
+        --window-icon=device_pci \
+        --kill-parent=0 \
+        --image=device_pci \
+        --button="yad-close" \
+        --escape-ok \
+        --center \
+        --fixed \
+        --pname="GPUIcon" \
+        --pversion="${VERSION}" \
+        --copyright="Copyright (C) 2022 Artur 'h0m3' Paiva" \
+        --license="GPL3" \
+        --authors="Artur 'h0m3' Paiva <dr.hoome@gmail.com>, Papirus Icon Theme <https://github.com/PapirusDevelopmentTeam/papirus-icon-theme>, Flatwoken Icon Theme <https://github.com/alecive/FlatWoken>, GLXInfo <https://dri.freedesktop.org/wiki/glxinfo/>, Yet Another Dialog <https://github.com/v1cont/yad>" \
+        --website="http://github.com/h0m3/gpuicon" \
+        --website-label="GitHub"
 }
 
 # Get the GPU manufacturer from glxinfo
@@ -205,7 +227,7 @@ fi
 case $1 in
     "-h")show_help;;
     "--help")show_help;;
-    "--about")echo "about";;
+    "--about")about_dialog;;
     "--glxinfo") show_glxinfo;;
     "--gpuinfo") show_information;;
     "")show_notification;;
