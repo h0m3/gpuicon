@@ -15,7 +15,7 @@ Exactly what says in the tin. Its a GPU icon for your system tray
 ## Quick install
 
 ```sh
-curl ...; sudo mv ./gpuicon /usr/bin/gpuinfo; sudo chmod +x /usr/bin/gpuinfo
+curl https://raw.githubusercontent.com/h0m3/gpuicon/master/gpuicon; sudo mv ./gpuicon /usr/bin/gpuinfo; sudo chmod +x /usr/bin/gpuinfo
 ```
 
 then `gpuicon` to launch it
