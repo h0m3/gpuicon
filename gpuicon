@@ -117,7 +117,7 @@ show_information() {
         --field="OpenGL:RO" "$(glxinfo_gl_version)"\
         --field="OpenGL ES:RO" "$(glxinfo_gl_es_version)" \
         --field="Accelerated:CHK" "${accelerated}" \
-        --field="Unified Memory:CHK" "${unified}"
+        --field="Unified Memory:CHK" "${unified}" > /dev/null
 }
 
 # Show full glxinfo
@@ -129,6 +129,24 @@ show_glxinfo() {
         --title="Mux Icon: GLX Info" \
         --center \
         --button="yad-close:0"
+}
+
+# Show help text
+show_help() {
+    echo "Usage: ${program} [OPTION]..."
+    echo "Show a GPU vendor icon on your desktop system tray"
+    echo
+    printf "\t-h, --help\tshow this help message\n"
+    printf "\t--about\t\tshow a about dialog and close\n"
+    printf "\t--glxinfo\tshow the GLX Info dialog\n"
+    printf "\t--gpuinfo\tshow the GPU Information dialog\n"
+}
+
+# Show invalid argument
+invalid_argument() {
+    echo "${program}: unrecognized option '$1'"
+    echo "Try '${program} --help' for more information."
+    exit 1
 }
 
 # Get the GPU manufacturer from glxinfo
@@ -173,8 +191,8 @@ glxinfo_gl_es_version() {
 
 # Check if the user has YAD
 if ! exists "yad"; then
-    stderr ":: unable to find 'yad', make sure YAD is installed" > /dev/stderr
-    stderr ":: more information at '${YAD_URL}'" > /dev/stderr
+    echo ":: unable to find 'yad', make sure YAD is installed" > /dev/stderr
+    echo ":: more information at '${YAD_URL}'" > /dev/stderr
     exit 1
 fi
 
@@ -185,10 +203,11 @@ if ! exists "glxinfo"; then
 fi
 
 case $1 in
-    "-h")echo "help";;
-    "--help")echo "help";;
+    "-h")show_help;;
+    "--help")show_help;;
     "--about")echo "about";;
     "--glxinfo") show_glxinfo;;
     "--gpuinfo") show_information;;
-    *)show_notification;;
+    "")show_notification;;
+    *)invalid_argument "${1}";;
 esac

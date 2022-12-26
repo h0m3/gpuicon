@@ -34,6 +34,12 @@ I've added support for some major graphics cards manufacturers but not all, if y
 
 If you want to help support your graphics card please do open a new issue with your GPU details and a copy of `glxinfo`. You can get it by clicking in the *gpuicon* and using the *GLXInfo* button.
 
+The following GPUs are currently supported:
+- [AMD](https://www.amd.com/)
+- [NVIDIA](https://www.nvidia.com)
+- [VMWare](https://www.vmware.com/)
+- [Software Rendering](https://docs.mesa3d.org/drivers/llvmpipe.html)
+
 ## I cannot close gpuicon
 
 When you click in the icon a Window with some details of your graphics is shown but theres no quit option. If you want to quit *gpuicon* just middle-click on it and it will close away.
